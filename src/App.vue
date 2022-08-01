@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <!-- -->
+    <!-------------------- Header ---------------------------->
     <header class="header">
       <h1>
         <img
@@ -10,14 +12,17 @@
       </h1>
       <v-spacer></v-spacer>
       <v-col class="center">
-        <v-text-field v-model="searchText">
+        <v-text-field placeholder="Looking for a pokemon! Let me help you, please enter a name. " v-model="searchText">
           <template slot="append">
             <v-icon> mdi-magnify</v-icon>
           </template>
         </v-text-field>
       </v-col>
+      
     </header>
 
+
+  <!-- Body-->
     <v-main>
       <div>
         <v-row>
@@ -26,18 +31,30 @@
             v-for="(pokemon, index) in resultQuery"
             :key="pokemon.url"
           >
+          <!-- Display each pokemon-->
             <DisplayPokemon
               :id="index + 1"
               :name="pokemon.name"
               :url="pokemon.url"
             />
           </div>
+          <!-- Scroller reference-->
           <div id="scroll-trigger" ref="infinitescrolltrigger">
-            <i class="fas fa-spinner fa-spin"></i>
+           
           </div>
         </v-row>
       </div>
     </v-main>
+
+<!-- Footer-->
+     <v-footer padless>
+    <v-col
+      class="text-center"
+      cols="12"
+    >
+       © 2022 — <strong>Pokedex</strong>
+    </v-col>
+  </v-footer>
   </div>
 </template>
 
@@ -69,6 +86,7 @@ export default {
     this.getPokemonsData();
   },
   computed: {
+    // display pokemon according to the search text
     resultQuery() {
       if (this.searchText) {
         return this.pokemons.filter((pokemon) => {
@@ -99,6 +117,7 @@ export default {
                 return !!part;
               })
               .pop();
+            pokemon.name = pokemon.name[0].toUpperCase() +  pokemon.name.slice(1);   
             this.pokemons.push(pokemon);
           });
         })
@@ -108,7 +127,7 @@ export default {
         });
     },
 
-    //allows dynamic scrolling by charging progressively the pokemons data
+    //allows dynamic scrolling by progressively loading pokemon data according to the user's progress
     scrollTrigger() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

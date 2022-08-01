@@ -2,11 +2,8 @@
   <div>
     <div>
       <v-col>
-        <figure
-          @click="showModal = true"
-          class="card"
-          :class="'card--' + pokemon.types[0]"
-        >
+        <!-- Card -->
+        <figure class="card" :class="'card--' + pokemon.types[0]">
           <div class="card__image-container">
             <img :src="pokemon.image" alt="Eevee" class="card__image" />
           </div>
@@ -23,22 +20,22 @@
                   <th>Id</th>
                   <td>{{ id }}</td>
                 </tr>
-
-                <tr>
-                  <th>heigth</th>
-                  <td>{{ pokemon.heigth }}</td>
-                </tr>
-
-                <tr>
-                  <th>weight</th>
-                  <td>{{ pokemon.weight }}</td>
-                </tr>
               </tbody>
             </table>
+            <v-btn
+              @click="showModal = true"
+              class="mx-2 center"
+              fab
+              dark
+              color="blue"
+            >
+              <v-icon dark> mdi-plus </v-icon>
+            </v-btn>
           </figcaption>
         </figure>
       </v-col>
     </div>
+    <!-- Modal to show more detail about pokemon-->
     <Detail
       :pokemon="pokemon"
       :name="name"
@@ -58,6 +55,7 @@ export default {
   components: {
     Detail,
   },
+  // Get some pokemon's attributes
   created: function () {
     axios.get(this.url).then((response) => {
       response.data.types.forEach((type) => {

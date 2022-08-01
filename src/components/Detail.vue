@@ -154,8 +154,8 @@ h3 {
   }
 }
 .ability {
-  color: rgb(10, 119, 10);
-  margin: 0 10px 10px 0;
+  color: rgb(55, 125, 190);
+  margin: 10px 15px 10px 0;
   border-radius: 20px;
   padding: 5px 10px;
   font-weight: bold;
